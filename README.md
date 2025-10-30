@@ -5,7 +5,7 @@ This project builds a production-grade **data engineering pipeline** that ingest
 
 ---
 
-## 🔧 Architecture
+## 🔧 Architecture Used
 
 | Layer | Tool | Purpose |
 |-------|------|----------|
