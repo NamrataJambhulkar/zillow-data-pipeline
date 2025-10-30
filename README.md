@@ -29,8 +29,8 @@ This project builds a production-grade **data engineering pipeline** that ingest
 ---
 
 ## 🗓 Implementation Plan (7 Days)
-**Day 1:** Setup + Documentation  
-**Day 2:** API ingestion Lambda  
+**Day 1:** Setup + Documentation **(Done)**  
+**Day 2:** API ingestion Lambda  **(Done)**
 **Day 3:** Glue transformation  
 **Day 4:** Step Functions orchestration  
 **Day 5:** Redshift + dbt  
