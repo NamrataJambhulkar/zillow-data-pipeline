@@ -20,18 +20,26 @@ This project builds a production-grade **data engineering pipeline** that ingest
 
 ---
 
-
 ## ⚙️ Tech Stack
-- Python, SQL  
-- AWS (S3, Lambda, Glue, Redshift, Step Functions, CloudWatch, IAM)  
-- dbt, Power BI, GitHub Actions  
+**Languages:** Python, SQL  
+**AWS Services:** S3, Lambda, Glue, Step Functions, Redshift, CloudWatch, IAM  
+**Others:** dbt, Power BI, GitHub Actions  
+
+---
+
+## 🧩 Data Flow
+1. **Lambda (Ingestion)** → Calls Zillow API and dumps JSON to `s3://zillow-raw-data-3010/`
+2. **Glue (Transformation)** → Reads raw JSON → Flattens nested structure → Cleans → Writes Parquet to `s3://zillow-processed-data-3010/`
+3. **Step Functions (Orchestration)** → Triggers end-to-end ETL (Lambda → Glue → Redshift load)
+4. **Redshift + dbt (Modeling)** → Creates analytic models
+5. **Power BI (Visualization)** → Visualizes housing trends & pricing metrics
 
 ---
 
 ## 🗓 Implementation Plan (7 Days)
 **Day 1:** Setup + Documentation **(Done)**  
 **Day 2:** API ingestion Lambda **(Done)**  
-**Day 3:** Glue transformation  
+**Day 3:** Glue transformation **(Done)**
 **Day 4:** Step Functions orchestration  
 **Day 5:** Redshift + dbt  
 **Day 6:** Power BI dashboard  
@@ -43,13 +51,26 @@ This project builds a production-grade **data engineering pipeline** that ingest
 
 **Day 1:** Setup + Documentation ✅ *(Completed on Oct 30, 2025)*  
 **Day 2:** API Ingestion Lambda ✅ *(Completed on Oct 30, 2025)*  
-**Day 3:** Glue Transformation 🔜 *In Progress*  
+**Day 3:** Glue Transformation ✅ *(Completed on Nov 02, 2025)*  
 **Day 4:** Step Functions Orchestration ⏳ *Upcoming*  
 **Day 5:** Redshift + dbt ⏳ *Upcoming*  
 **Day 6:** Power BI Dashboard ⏳ *Upcoming*  
 **Day 7:** CI/CD + Monitoring ⏳ *Upcoming*  
 
 ---
+
+## 📸 Results
+
+| AWS Glue Job Success | CloudWatch Logs |
+|----------------------|-----------------|
+| ![Glue Job Success](screenshots/glue_job_success.png) | ![CloudWatch Logs](screenshots/cloudwatch_log_output.png) |
+
+**Additional Artifacts:**
+- `s3://zillow-raw-data-3010/` → Raw JSON dumps  
+- `s3://zillow-processed-data-3010/` → Cleaned, partitioned Parquet files (`city`, `status`, `ingestion_date`)  
+
+---
+
 
 ## 📸 Results (To Add Later)
 - Screenshots of S3 raw & curated data  
@@ -64,3 +85,33 @@ This project builds a production-grade **data engineering pipeline** that ingest
 - Build automated ETL + orchestration flows  
 - Model data in Redshift with dbt  
 - Automate & monitor pipelines professionally
+
+---
+
+## 🗂 Folder Structure (Local)
+```bash
+zillow-data-pipeline/
+│
+├── .github/workflows/deploy.yml
+├── dbt/
+│   ├── profiles.yml
+│   └── models/
+│       ├── staging/
+│       └── marts/
+├── infra/
+│   ├── iam_policies.json
+│   ├── redshift_schema.sql
+│   └── s3_buckets_setup.txt
+├── screenshots/
+│   ├── glue_job_success.png
+│   └── cloudwatch_log_output.png
+├── src/
+│   ├── ingestion/
+│   │   ├── sample_response.json
+│   │   ├── test_zillow_api.py
+│   │   └── zillow_api_ingest.py
+│   ├── orchestration/
+│   │   └── step_function_definition.json
+│   └── transformation/
+│       └── glue_zillow_transform.py
+└── README.md
