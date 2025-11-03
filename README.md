@@ -40,7 +40,7 @@ This project builds a production-grade **data engineering pipeline** that ingest
 **Day 1:** Setup + Documentation **(Done)**  
 **Day 2:** API ingestion Lambda **(Done)**  
 **Day 3:** Glue transformation **(Done)**
-**Day 4:** Step Functions orchestration  
+**Day 4:** Step Functions orchestration **(Done)**
 **Day 5:** Redshift + dbt  
 **Day 6:** Power BI dashboard  
 **Day 7:** CI/CD + Monitoring  
@@ -52,7 +52,7 @@ This project builds a production-grade **data engineering pipeline** that ingest
 **Day 1:** Setup + Documentation ✅ *(Completed on Oct 30, 2025)*  
 **Day 2:** API Ingestion Lambda ✅ *(Completed on Oct 30, 2025)*  
 **Day 3:** Glue Transformation ✅ *(Completed on Nov 02, 2025)*  
-**Day 4:** Step Functions Orchestration ⏳ *Upcoming*  
+**Day 4:** Step Functions Orchestration ✅ *(Completed on Nov 03, 2025)*  
 **Day 5:** Redshift + dbt ⏳ *Upcoming*  
 **Day 6:** Power BI Dashboard ⏳ *Upcoming*  
 **Day 7:** CI/CD + Monitoring ⏳ *Upcoming*  
@@ -64,6 +64,10 @@ This project builds a production-grade **data engineering pipeline** that ingest
 | AWS Glue Job Success | CloudWatch Logs |
 |----------------------|-----------------|
 | ![Glue Job Success](screenshots/glue_job_success.png) | ![CloudWatch Logs](screenshots/cloudwatch_log_output.png) |
+
+| AWS Glue Job Success | CloudWatch Logs |
+|----------------------|-----------------|
+| ![CloudWatch Exceution log](screenshots/cloudwatch_glue_logs.png) | ![Step Function Success](screenshots/step_function_success.png) |
 
 **Additional Artifacts:**
 - `s3://zillow-raw-data-3010/` → Raw JSON dumps  

@@ -6,6 +6,8 @@ from awsglue.context import GlueContext
 from awsglue.job import Job
 from pyspark.sql import functions as F
 from pyspark.sql.types import DoubleType, IntegerType, StringType, LongType
+from pyspark.sql.window import Window
+from awsglue.dynamicframe import DynamicFrame
 
 # --- Glue setup ---
 args = getResolvedOptions(sys.argv, ['JOB_NAME'])
@@ -75,11 +77,27 @@ try:
     # Drop incomplete or duplicate records
     df_clean = df_clean.dropna(subset=["price", "address"])
     df_clean = df_clean.dropDuplicates(["zpid"])
+    
+     # Merge with old data if available
+    try:
+        df_old = spark.read.parquet(OUTPUT_S3_PATH)
+        print("✅ Existing processed data found, merging...")
+        df_combined = df_old.unionByName(df_clean, allowMissingColumns=True)
+    except Exception:
+        print("ℹ️ No previous data found. Creating fresh dataset.")
+        df_combined = df_clean
 
-    # Write to S3 as partitioned Parquet with compression
-    from awsglue.dynamicframe import DynamicFrame
-    dyf = DynamicFrame.fromDF(df_clean, glueContext, "dyf")
+    # Keep only the latest record for each property
+    window_spec = Window.partitionBy("zpid").orderBy(F.col("ingestion_date").desc())
+    df_final = (
+        df_combined
+        .withColumn("row_num", F.row_number().over(window_spec))
+        .filter(F.col("row_num") == 1)
+        .drop("row_num")
+    )
 
+    # Write final dataset
+    dyf = DynamicFrame.fromDF(df_final, glueContext, "dyf")
     glueContext.write_dynamic_frame.from_options(
         frame=dyf,
         connection_type="s3",
@@ -93,12 +111,8 @@ try:
         format_options={"compression": "snappy", "mergeSchema": True}
     )
 
-    print(f"✅ Transformation complete. Output written to {OUTPUT_S3_PATH}")
-    print(f"✅ Partitioned by {PARTITION_KEYS}")
-    print(f"✅ Registering table {GLUE_DATABASE}.{GLUE_TABLE} in Glue Catalog.")
-
+    print("✅ New records appended successfully.")
     job.commit()
-    print("✅ Glue job completed successfully.")
 
 except Exception as e:
     print("❌ Job failed.")
