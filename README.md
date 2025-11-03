@@ -77,8 +77,6 @@ This project builds a production-grade **data engineering pipeline** that ingest
 
 
 ## 📸 Results (To Add Later)
-- Screenshots of S3 raw & curated data  
-- Step Function run graph  
 - Redshift tables  
 - Power BI dashboard  
 
