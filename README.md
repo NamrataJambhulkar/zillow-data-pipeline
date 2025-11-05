@@ -58,10 +58,17 @@ This project builds a production-grade **data engineering pipeline** that ingest
 |----------------------|-----------------|
 | ![CloudWatch Exceution log](screenshots/cloudwatch_glue_logs.png) | ![Step Function Success](screenshots/step_function_success.png) |
 
+# 📸 Results
+
+| Snowflake Curated View | dbt Run Success |
+|-------------------------|-----------------|
+| ![Snowflake Curated View](screenshots/snowflake_curated_view.png) | ![dbt Run Success](screenshots/dbt_run_success.png) |
+
 **Additional Artifacts:**
 - `s3://zillow-raw-data-3010/` → Raw JSON dumps  
 - `s3://zillow-processed-data-3010/` → Cleaned, partitioned Parquet files (`city`, `status`, `ingestion_date`)  
-
+- `snowflake_curated_view.png`: Shows final `STG_ZILLOW_LISTINGS` view in Snowflake with structured Zillow data.
+- `dbt_run_success.png`: Demonstrates successful dbt–Snowflake integration and model execution.
 ---
 
 ## 📸 Results (To Add Later)
