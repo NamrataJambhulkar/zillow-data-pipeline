@@ -42,7 +42,7 @@ This project builds a production-grade **data engineering pipeline** that ingest
 **Day 2:** API Ingestion Lambda ✅ *(Completed on Oct 30, 2025)*  
 **Day 3:** Glue Transformation ✅ *(Completed on Nov 02, 2025)*  
 **Day 4:** Step Functions Orchestration ✅ *(Completed on Nov 03, 2025)*  
-**Day 5:** Redshift + dbt ⏳ *Upcoming*  
+**Day 5:** Snowflake + dbt ⏳ *Progressing*  *(Completed Staging and view in Snowflake on Nov 5, 2025)*
 **Day 6:** Power BI Dashboard ⏳ *Upcoming*  
 **Day 7:** CI/CD + Monitoring ⏳ *Upcoming*  
 
@@ -65,7 +65,7 @@ This project builds a production-grade **data engineering pipeline** that ingest
 ---
 
 ## 📸 Results (To Add Later)
-- Redshift tables  
+- Snowflake tables  
 - Power BI dashboard  
 
 ---
