@@ -1,1 +1,0 @@
-{"_invocation_id": "cb5a3db4-0abe-4216-9a53-492127408134", "linked": {"0": {"name": "source.zillow_data_pipeline.curated.zillow_listings", "type": "source", "succ": [1]}, "1": {"name": "model.zillow_data_pipeline.stg_zillow_listings", "type": "model"}}}
