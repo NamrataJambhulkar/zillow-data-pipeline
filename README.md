@@ -64,7 +64,6 @@ This project builds a production-grade **data engineering pipeline** that ingest
 
 ---
 
-
 ## 📸 Results (To Add Later)
 - Redshift tables  
 - Power BI dashboard  
