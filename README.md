@@ -1,7 +1,7 @@
 # 🏗 Zillow Real Estate Data Pipeline (End-to-End AWS ETL)
 
 ## 📘 Overview
-This project builds a production-grade **data engineering pipeline** that ingests property listings from the **Zillow API** (via RapidAPI), processes them in **AWS**, and loads the curated dataset into **Redshift** for analytics and **Power BI visualization**.
+This project builds a production-grade **data engineering pipeline** that ingests property listings from the **Zillow API** (via RapidAPI), processes them in **AWS**, and loads the curated dataset into **Snowflake** for analytics and **Power BI visualization**.
 
 ---
 
@@ -12,7 +12,7 @@ This project builds a production-grade **data engineering pipeline** that ingest
 | Ingestion | AWS Lambda + Python | Fetch data from Zillow API and store in S3 |
 | Transformation | AWS Glue + PySpark | Clean and convert JSON → Parquet |
 | Orchestration | AWS Step Functions | Manage full ETL workflow |
-| Warehousing | AWS Redshift | Store analytical data |
+| Warehousing | AWS Snowflake | Store analytical data |
 | Modeling | dbt | Create dimensions, facts, and KPIs |
 | Visualization | Power BI | Build dashboards |
 | Monitoring | CloudWatch | Track ETL runs and errors |
@@ -22,7 +22,7 @@ This project builds a production-grade **data engineering pipeline** that ingest
 
 ## ⚙️ Tech Stack
 **Languages:** Python, SQL  
-**AWS Services:** S3, Lambda, Glue, Step Functions, Redshift, CloudWatch, IAM  
+**AWS Services:** S3, Lambda, Glue, Step Functions, Snowflake, CloudWatch, IAM  
 **Others:** dbt, Power BI, GitHub Actions  
 
 ---
@@ -30,8 +30,8 @@ This project builds a production-grade **data engineering pipeline** that ingest
 ## 🧩 Data Flow
 1. **Lambda (Ingestion)** → Calls Zillow API and dumps JSON to `s3://zillow-raw-data-3010/`
 2. **Glue (Transformation)** → Reads raw JSON → Flattens nested structure → Cleans → Writes Parquet to `s3://zillow-processed-data-3010/`
-3. **Step Functions (Orchestration)** → Triggers end-to-end ETL (Lambda → Glue → Redshift load)
-4. **Redshift + dbt (Modeling)** → Creates analytic models
+3. **Step Functions (Orchestration)** → Triggers end-to-end ETL (Lambda → Glue → Snowflake load)
+4. **Snowflake + dbt (Modeling)** → Creates analytic models
 5. **Power BI (Visualization)** → Visualizes housing trends & pricing metrics
 
 ---
@@ -99,7 +99,7 @@ zillow-data-pipeline/
 │       └── marts/
 ├── infra/
 │   ├── iam_policies.json
-│   ├── redshift_schema.sql
+│   ├── Snowflake_schema.sql
 │   └── s3_buckets_setup.txt
 ├── screenshots/
 │   ├── glue_job_success.png
