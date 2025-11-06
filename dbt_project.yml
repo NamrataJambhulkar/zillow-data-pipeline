@@ -1,0 +1,11 @@
+name: zillow_data_pipeline
+version: 1.0.0
+config-version: 2
+
+profile: zillow_dbt
+
+model-paths: ["dbt/models"]
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_modules"
