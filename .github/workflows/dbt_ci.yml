@@ -2,37 +2,36 @@ name: dbt CI/CD
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   pull_request:
+    branches: [ "main" ]
 
 jobs:
   run-dbt:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: '3.10'
 
       - name: Install dbt
-        run: |
-          pip install dbt-snowflake==1.10.2
+        run: pip install dbt-snowflake
 
-      - name: Setup dbt profile
+      - name: Set up dbt profiles
         run: |
           mkdir -p ~/.dbt
           echo "${{ secrets.DBT_PROFILES_YML }}" > ~/.dbt/profiles.yml
 
-      - name: Debug dbt
+      - name: Run dbt debug
         run: dbt debug
 
-      - name: Run models
-        run: dbt run --target dev
+      - name: Run dbt models
+        run: dbt run
 
-      - name: Run tests
-        run: dbt test --target dev
+      - name: Run dbt tests
+        run: dbt test
