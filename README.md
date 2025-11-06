@@ -54,20 +54,22 @@ This project builds a production-grade **data engineering pipeline** that ingest
 |----------------------|-----------------|
 | ![Glue Job Success](screenshots/glue_job_success.png) | ![CloudWatch Logs](screenshots/cloudwatch_log_output.png) |
 
-| AWS Glue Job Success | CloudWatch Logs |
+| AWS Glue Job Success | Step Function Success |
 |----------------------|-----------------|
 | ![CloudWatch Exceution log](screenshots/cloudwatch_glue_logs.png) | ![Step Function Success](screenshots/step_function_success.png) |
-
-# 📸 Results
 
 | Snowflake Curated View | dbt test Success |
 |-------------------------|-----------------|
 | ![Snowflake Curated View](screenshots/snowflake_curated_view.png) | ![dbt test Success](screenshots/dbt_tests_results.png) |
 
+| dbt Lineage grahp |
+|-------------------------|
+| ![dbt Lineage grahp](screenshots/dbt_lineage_graph.png) |
+
 **Additional Artifacts:**
 - `s3://zillow-raw-data-3010/` → Raw JSON dumps  
 - `s3://zillow-processed-data-3010/` → Cleaned, partitioned Parquet files (`city`, `status`, `ingestion_date`)  
-- `snowflake_curated_view.png`: Shows final `STG_ZILLOW_LISTINGS` view in Snowflake with structured Zillow data.
+- `snowflake_curated_view.png`: Shows final `STG_ZILLOW_LISTINGS` view in Snowflake with dims and fact tables.
 - `dbt_test_results.png`: Documented realistic dbt test failures to showcase data quality checks.
 
 ---
@@ -80,7 +82,7 @@ This project builds a production-grade **data engineering pipeline** that ingest
 ## 🧠 Learning Outcomes
 - Integrate APIs into AWS data pipelines  
 - Build automated ETL + orchestration flows  
-- Model data in Redshift with dbt  
+- Model data in Snowflake with dbt  
 - Automate & monitor pipelines professionally
 
 ---
