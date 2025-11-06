@@ -1,6 +1,4 @@
-{{ config(
-    materialized='table'
-) }}
+
 
 select distinct
     home_type,
@@ -10,5 +8,5 @@ select distinct
         when home_type ilike '%APARTMENT%' then 'Apartment Unit'
         else 'Other'
     end as category_description
-from {{ ref('stg_zillow_listings') }}
+from ZILLOW_DATA.CURATED.stg_zillow_listings
 where home_type is not null

@@ -1,0 +1,83 @@
+version: 2
+
+models:
+  - name: dim_city
+    description: "List of all unique cities and states from Zillow listings"
+    columns:
+      - name: city_name
+        tests:
+          - not_null
+          - unique
+      - name: state
+        tests:
+          - not_null
+
+  - name: dim_home_type
+    description: "Unique home types and their standardized categories"
+    columns:
+      - name: home_type
+        tests:
+          - not_null
+          - unique
+      - name: category_description
+        tests:
+          - not_null
+
+  - name: dim_location
+    description: "Unique location combinations of zipcode, city, and state"
+    columns:
+      - name: zipcode
+        tests:
+          - not_null
+          - unique
+      - name: city
+        tests:
+          - not_null
+      - name: state
+        tests:
+          - not_null
+
+  - name: dim_property
+    description: "Unique property information from listings"
+    columns:
+      - name: address
+        tests:
+          - not_null
+          - unique
+      - name: home_type
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_home_type')
+                field: home_type
+      - name: area_sqft
+        tests:
+          - not_null
+      - name: bedrooms
+        tests:
+          - not_null
+      - name: bathrooms
+        tests:
+          - not_null
+
+  - name: fact_zillow_listings
+    description: "Fact table joining all property data for analytics"
+    columns:
+      - name: address
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_property')
+                field: address
+      - name: home_type
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_home_type')
+                field: home_type
+      - name: city
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_city')
+                field: city_name

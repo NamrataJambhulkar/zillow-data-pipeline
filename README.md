@@ -60,19 +60,19 @@ This project builds a production-grade **data engineering pipeline** that ingest
 
 # 📸 Results
 
-| Snowflake Curated View | dbt Run Success |
+| Snowflake Curated View | dbt test Success |
 |-------------------------|-----------------|
-| ![Snowflake Curated View](screenshots/snowflake_curated_view.png) | ![dbt Run Success](screenshots/dbt_run_success.png) |
+| ![Snowflake Curated View](screenshots/snowflake_curated_view.png) | ![dbt test Success](screenshots/dbt_tests_results.png) |
 
 **Additional Artifacts:**
 - `s3://zillow-raw-data-3010/` → Raw JSON dumps  
 - `s3://zillow-processed-data-3010/` → Cleaned, partitioned Parquet files (`city`, `status`, `ingestion_date`)  
 - `snowflake_curated_view.png`: Shows final `STG_ZILLOW_LISTINGS` view in Snowflake with structured Zillow data.
-- `dbt_run_success.png`: Demonstrates successful dbt–Snowflake integration and model execution.
+- `dbt_test_results.png`: Documented realistic dbt test failures to showcase data quality checks.
+
 ---
 
 ## 📸 Results (To Add Later)
-- Snowflake tables  
 - Power BI dashboard  
 
 ---
