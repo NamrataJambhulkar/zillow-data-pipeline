@@ -22,12 +22,27 @@ jobs:
       - name: Install dbt
         run: pip install dbt-snowflake
 
-      - name: Set up dbt profiles
+      - name: Configure dbt profiles.yml
         run: |
           mkdir -p ~/.dbt
-          echo "${{ secrets.DBT_PROFILES_YML }}" > ~/.dbt/profiles.yml
+          cat > ~/.dbt/profiles.yml <<EOL
+          zillow_dbt:
+            target: dev
+            outputs:
+              dev:
+                type: snowflake
+                account: ZXEPCNH-CJ03437
+                user: ${{ secrets.SNOWFLAKE_USER }}
+                password: "${{ secrets.SNOWFLAKE_PASSWORD }}"
+                role: ACCOUNTADMIN
+                warehouse: COMPUTE_WH
+                database: ZILLOW_DATA
+                schema: CURATED
+                threads: 4
+                client_session_keep_alive: false
+          EOL
 
-      - name: Run dbt debug
+      - name: Debug dbt connection
         run: dbt debug
 
       - name: Run dbt models
