@@ -1,24 +1,18 @@
 # 🏗 Zillow Real Estate Data Pipeline (End-to-End AWS ETL)
 
 ## 📘 Overview
-## 📘 Overview
 
-This project builds a production-grade **data engineering pipeline** that ingests property listings from the **Zillow API** (via RapidAPI), processes them in **AWS**, and loads the curated dataset into **Snowflake** for analytics and **Power BI visualization**.
-
-The pipeline is fully automated through **GitHub Actions (CI/CD)** — every push to the main branch triggers a workflow that:
-- Validates the Snowflake connection
-- Runs and tests all dbt models automatically
-- Ensures only clean, validated data is deployed to production
-
-This ensures continuous integration, data quality enforcement, and fully reproducible deployments across environments.
+**This project** builds an end-to-end **AWS data pipeline** that ingests Zillow data via **RapidAPI**, processes it with **Lambda** and **Glue**, loads it into **Snowflake**, and automates testing and deployment using **dbt** and **GitHub Actions (CI/CD)**.
 
 ---
 
-## [Architecture Daigram](screenshots/architecture_diagram.png)
+<p align="center">
+  <img src="screenshots/architecture_diagram.png" alt="Architecture Diagram" width="800">
+</p>
 
 ---
 
-## 🔧 Architecture Used
+## 🧱 Architecture Overview
 
 | Layer | Tool | Purpose |
 |-------|------|----------|
@@ -45,7 +39,7 @@ This ensures continuous integration, data quality enforcement, and fully reprodu
 2. **Glue (Transformation)** → Reads raw JSON → Flattens nested structure → Cleans → Writes Parquet to `s3://zillow-processed-data-3010/`
 3. **Step Functions (Orchestration)** → Orchestrates the AWS workflow (Lambda → Glue → data ready for Snowflake)
 4. **dbt + Snowflake (Modeling)** → Loads processed data from S3 into Snowflake and builds analytics models
-5. **Power BI (Visualization)** → Visualizes housing trends & pricing metrics
+5. **Power BI (Visualization)** → *(Planned)* to visualize housing trends and KPIs using curated Snowflake data
 6. **GitHub Actions (CI/CD)** → Automates dbt testing and deployment, ensuring data quality and consistency on every code change
 
 ---
@@ -58,7 +52,7 @@ This ensures continuous integration, data quality enforcement, and fully reprodu
 
 | AWS Glue Job Success | Step Function Success |
 |----------------------|-----------------|
-| ![CloudWatch Exceution log](screenshots/cloudwatch_glue_logs.png) | ![Step Function Success](screenshots/step_function_success.png) |
+| ![CloudWatch Execution Log](screenshots/cloudwatch_glue_logs.png) | ![Step Function Success](screenshots/step_function_success.png) |
 
 | Snowflake Curated View | dbt test Success |
 |-------------------------|-----------------|
@@ -66,18 +60,13 @@ This ensures continuous integration, data quality enforcement, and fully reprodu
 
 | dbt Lineage grahp |
 |-------------------------|
-| ![dbt Lineage grahp](screenshots/dbt_lineage_graph.png) |
+| ![dbt Lineage Graph](screenshots/dbt_lineage_graph.png) |
 
 **Additional Artifacts:**
 - `s3://zillow-raw-data-3010/` → Raw JSON dumps  
 - `s3://zillow-processed-data-3010/` → Cleaned, partitioned Parquet files (`city`, `status`, `ingestion_date`)  
 - `snowflake_curated_view.png`: Shows final `STG_ZILLOW_LISTINGS` view in Snowflake with dims and fact tables.
 - `dbt_test_results.png`: Documented realistic dbt test failures to showcase data quality checks.
-
----
-
-## 📸 Results (To Add Later)
-- Power BI dashboard  
 
 ---
 
