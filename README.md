@@ -1,7 +1,20 @@
 # 🏗 Zillow Real Estate Data Pipeline (End-to-End AWS ETL)
 
 ## 📘 Overview
+## 📘 Overview
+
 This project builds a production-grade **data engineering pipeline** that ingests property listings from the **Zillow API** (via RapidAPI), processes them in **AWS**, and loads the curated dataset into **Snowflake** for analytics and **Power BI visualization**.
+
+The pipeline is fully automated through **GitHub Actions (CI/CD)** — every push to the main branch triggers a workflow that:
+- Validates the Snowflake connection
+- Runs and tests all dbt models automatically
+- Ensures only clean, validated data is deployed to production
+
+This ensures continuous integration, data quality enforcement, and fully reproducible deployments across environments.
+
+---
+
+## [Architecture Daigram](screenshots/architecture_diagram.png)
 
 ---
 
@@ -16,11 +29,7 @@ This project builds a production-grade **data engineering pipeline** that ingest
 | Modeling | dbt | Create dimensions, facts, and KPIs |
 | Visualization | Power BI | Build dashboards |
 | Monitoring | CloudWatch | Track ETL runs and errors |
-| CI/CD | GitHub Actions | Automate Lambda + dbt deployment |
-
----
-
-## | ![Architecture Daigram](screenshots/architecture_diagram.png) |
+| CI/CD | GitHub Actions | Automate dbt build, testing, and validation in Snowflake |
 
 ---
 
@@ -34,9 +43,10 @@ This project builds a production-grade **data engineering pipeline** that ingest
 ## 🧩 Data Flow
 1. **Lambda (Ingestion)** → Calls Zillow API and dumps JSON to `s3://zillow-raw-data-3010/`
 2. **Glue (Transformation)** → Reads raw JSON → Flattens nested structure → Cleans → Writes Parquet to `s3://zillow-processed-data-3010/`
-3. **Step Functions (Orchestration)** → Triggers end-to-end ETL (Lambda → Glue → Snowflake load)
-4. **Snowflake + dbt (Modeling)** → Creates analytic models
+3. **Step Functions (Orchestration)** → Orchestrates the AWS workflow (Lambda → Glue → data ready for Snowflake)
+4. **dbt + Snowflake (Modeling)** → Loads processed data from S3 into Snowflake and builds analytics models
 5. **Power BI (Visualization)** → Visualizes housing trends & pricing metrics
+6. **GitHub Actions (CI/CD)** → Automates dbt testing and deployment, ensuring data quality and consistency on every code change
 
 ---
 
@@ -76,33 +86,3 @@ This project builds a production-grade **data engineering pipeline** that ingest
 - Build automated ETL + orchestration flows  
 - Model data in Snowflake with dbt  
 - Automate & monitor pipelines professionally
-
----
-
-## 🗂 Folder Structure (Local)
-```bash
-zillow-data-pipeline/
-│
-├── .github/workflows/deploy.yml
-├── dbt/
-│   ├── profiles.yml
-│   └── models/
-│       ├── staging/
-│       └── marts/
-├── infra/
-│   ├── iam_policies.json
-│   ├── Snowflake_schema.sql
-│   └── s3_buckets_setup.txt
-├── screenshots/
-│   ├── glue_job_success.png
-│   └── cloudwatch_log_output.png
-├── src/
-│   ├── ingestion/
-│   │   ├── sample_response.json
-│   │   ├── test_zillow_api.py
-│   │   └── zillow_api_ingest.py
-│   ├── orchestration/
-│   │   └── step_function_definition.json
-│   └── transformation/
-│       └── glue_zillow_transform.py
-└── README.md
