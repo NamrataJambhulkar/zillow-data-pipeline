@@ -20,6 +20,10 @@ This project builds a production-grade **data engineering pipeline** that ingest
 
 ---
 
+## | ![Architecture Daigram](screenshots/architecture_diagram.png) |
+
+---
+
 ## ⚙️ Tech Stack
 **Languages:** Python, SQL  
 **AWS Services:** S3, Lambda, Glue, Step Functions, Snowflake, CloudWatch, IAM  
@@ -33,18 +37,6 @@ This project builds a production-grade **data engineering pipeline** that ingest
 3. **Step Functions (Orchestration)** → Triggers end-to-end ETL (Lambda → Glue → Snowflake load)
 4. **Snowflake + dbt (Modeling)** → Creates analytic models
 5. **Power BI (Visualization)** → Visualizes housing trends & pricing metrics
-
----
-
-## 🚀 Project Progress Tracker  
-
-**Day 1:** Setup + Documentation ✅ *(Completed on Oct 30, 2025)*  
-**Day 2:** API Ingestion Lambda ✅ *(Completed on Oct 30, 2025)*  
-**Day 3:** Glue Transformation ✅ *(Completed on Nov 02, 2025)*  
-**Day 4:** Step Functions Orchestration ✅ *(Completed on Nov 03, 2025)*  
-**Day 5:** Snowflake + dbt ✅ *(Completed Nov 5-6, 2025)*
-**Day 6:** Power BI Dashboard ⏳ *Upcoming*  
-**Day 7:** CI/CD + Monitoring ✅ *(Completed on Nov 06, 2025)*  
 
 ---
 
